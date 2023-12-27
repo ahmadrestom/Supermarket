@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,18 @@ public class ItemController {
 		return itemservice.getByName(item_name);
 	}
 	
+	@GetMapping("/pagination/{pageSize}") //returns limited number of items
+	public Page<item> getLimitedItemsDetails(@PathVariable int pageSize){
+		Page<item> items = itemservice.getSomeItems(0, pageSize);
+		return items;
+	}
+	
+	@GetMapping("/pagination/{offset}/{pageSize}") //returns the data as pages
+	public Page<item> getSomeItemsDetails(@PathVariable int offset, @PathVariable int pageSize){
+		Page<item> items = itemservice.getSomeItems(offset, pageSize);
+		return items;
+	}
+	
 	@PostMapping
 	public String createItemDetails(@RequestBody item item)
 	{
@@ -61,4 +74,8 @@ public class ItemController {
 		itemservice.deleteItem(item_id);
 		return "Item deleted successfully";
 	}
+	
+	
+	
+	
 }

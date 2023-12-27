@@ -2,6 +2,10 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Model.item;
@@ -45,7 +49,14 @@ public class ItemServiceImplementation implements ItemService{
 	}
 
 	@Override
-	public List<item> getByName(String item_name){		
+	public List<item> getByName(String item_name){
 		return item_repository.findItemsByNameContaining(item_name);
 	}
+	
+	@Override
+	public Page<item> getSomeItems(int offset, int pageSize){
+		Page<item> items = item_repository.findAll(PageRequest.of(offset, pageSize));
+		return items;
+	}
+
 }
