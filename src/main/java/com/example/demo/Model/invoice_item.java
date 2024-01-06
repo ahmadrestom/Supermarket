@@ -2,6 +2,9 @@ package com.example.demo.Model;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +28,7 @@ public class invoice_item {
 	
 	@ManyToOne
 	@JoinColumn(name = "invoices_id")
+	@JsonBackReference
 	private invoice invoice;
 	
 	@ManyToOne
@@ -43,9 +47,6 @@ public class invoice_item {
 	public invoice_item() {
 		
 	}
-
-
-
 	public Integer getInvoice_item_id() {
 		return invoice_item_id;
 	}

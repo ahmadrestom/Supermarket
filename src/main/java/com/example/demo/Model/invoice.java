@@ -2,13 +2,22 @@ package com.example.demo.Model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,13 +33,23 @@ public class invoice {
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private customer customer;
+	
+	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private List<invoice_item> invoice_items = new ArrayList<>();
+	
+	
 
-	public invoice(LocalDateTime invoices_date, BigDecimal total_amount, com.example.demo.Model.customer customer) {
+	public invoice(Integer invoices_id, LocalDateTime invoices_date, BigDecimal total_amount,
+			com.example.demo.Model.customer customer, List<invoice_item> invoice_items) {
 		super();
+		this.invoices_id = invoices_id;
 		this.invoices_date = invoices_date;
 		this.total_amount = total_amount;
 		this.customer = customer;
+		this.invoice_items = invoice_items;
 	}
+
 	public invoice() {
 		
 	}
@@ -67,10 +86,11 @@ public class invoice {
 		this.customer = customer;
 	}
 	
-	
-	
-	
-	
-	
+	public List<invoice_item> getInvoice_items() {
+		return invoice_items;
+	}
 
+	public void setInvoice_items(List<invoice_item> invoice_items) {
+		this.invoice_items = invoice_items;
+	}
 }

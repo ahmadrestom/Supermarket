@@ -29,10 +29,11 @@ public class Invoice_itemServiceImplementation implements Invoice_itemService{
 		Integer itemId = invoice_item.getItem().getItem_id();
 		item item = item_repository.findById(itemId).orElse(null);
 		
-		if(item!=null) {
+		if(item!=null && item.getItem_price() != null && invoice_item.getQuantity() != null) {
 			BigDecimal price = item.getItem_price();
 			int quantity = invoice_item.getQuantity();
 			BigDecimal subtotal = price.multiply(BigDecimal.valueOf(quantity));
+			System.out.println("Price: " + price + ", Quantity: " + quantity + ", Subtotal: " + subtotal);
 			invoice_item.setSubtotal(subtotal);
 			invoice_itemRepository.save(invoice_item);
 			return "Invoice_item created successfully";

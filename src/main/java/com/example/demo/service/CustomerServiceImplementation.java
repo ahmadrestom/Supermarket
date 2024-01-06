@@ -40,8 +40,7 @@ public class CustomerServiceImplementation implements CustomerService{
 	}
 
 	@Override
-	public List<customer> getAllCustomers() {
+	public List<customer> getAllCustomers(){
 		return customer_repository.findAll();
 	}
-
 }
