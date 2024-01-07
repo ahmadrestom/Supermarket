@@ -62,7 +62,7 @@ public class invoice {
 		this.invoices_id = invoices_id;
 	}
 
-	public LocalDateTime getInvoices_date() {
+	public LocalDateTime getInvoices_date(){
 		return invoices_date;
 	}
 

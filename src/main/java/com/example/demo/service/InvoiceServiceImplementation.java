@@ -44,6 +44,8 @@ public class InvoiceServiceImplementation implements InvoiceService{
 	            BigDecimal price = existingItem.getItem_price();
 	            int quantity = item.getQuantity();
 	            BigDecimal subtotal = price.multiply(BigDecimal.valueOf(quantity));
+	            int existingItemQuantity = existingItem.getItem_quantity();
+	            existingItem.setItem_quantity(existingItemQuantity - item.getQuantity());
 	            item.setSubtotal(subtotal);
 	            item.setInvoice(invoice);
 	            totalAmount = totalAmount.add(subtotal);
