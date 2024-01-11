@@ -10,4 +10,5 @@ public interface CustomerService {
 	public String deleteCustomer(Integer customer_id);
 	public customer getCustomer(Integer customer_id);
 	public List<customer> getAllCustomers();
+	public customer getCustomerByName(String name);
 }

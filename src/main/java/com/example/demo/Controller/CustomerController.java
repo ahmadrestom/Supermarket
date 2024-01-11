@@ -24,14 +24,18 @@ public class CustomerController {
 		this.customerService = customerService;
 	}
 
-	//getting specific customer details
 	@GetMapping("{customer_id}")
 	public customer getCustomerDetails(@PathVariable("customer_id") Integer customer_id)
 	{
 		return customerService.getCustomer(customer_id);
 	}
 	
-	//getting all customer details
+	@GetMapping("/byname/{customer_name}")
+	public customer getCustomerDetailsByName(@PathVariable("customer_name") String customerName)
+	{
+		return customerService.getCustomerByName(customerName);
+	}
+
 	@GetMapping
 	public List<customer> getAllCustomerDetails()
 	{

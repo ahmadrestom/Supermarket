@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import com.example.demo.Model.customer;
 import com.example.demo.Model.invoice;
 
 public interface InvoiceService {
@@ -11,4 +12,5 @@ public interface InvoiceService {
 	public invoice getInvoice(Integer invoice_id);
 	public String deleteInvoice(Integer invoice_id);
 	public List<invoice> getAllInvoices();
+	public List<invoice> getCustomerInvoices(String customer_name);
 }

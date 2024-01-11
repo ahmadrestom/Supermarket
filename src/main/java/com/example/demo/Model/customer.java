@@ -1,14 +1,10 @@
 package com.example.demo.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -18,8 +14,9 @@ public class customer{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer customer_id;
-	private String customer_name;
+	private int customer_id;
+	@Column(name = "customer_name")
+	private String customerName;
 	private String customer_phone;
 	private String customer_address;
 	private String customer_email;
@@ -29,7 +26,7 @@ public class customer{
 			String customer_email) {
 		super();
 		this.customer_id = customer_id;
-		this.customer_name = customer_name;
+		this.customerName = customer_name;
 		this.customer_phone = customer_phone;
 		this.customer_address = customer_address;
 		this.customer_email = customer_email;
@@ -47,10 +44,10 @@ public class customer{
 		this.customer_id = id;
 	}
 	public String getCustomer_name() {
-		return this.customer_name;
+		return this.customerName;
 	}
 	public void setCustomer_name(String name) {
-		this.customer_name = name;
+		this.customerName = name;
 	}
 	public String getCustomer_phone() {
 		return this.customer_phone;
@@ -69,6 +66,6 @@ public class customer{
 	}
 	public void setCustomer_email(String email) {
 		this.customer_email = email;
-	}
+	}	
 
 }

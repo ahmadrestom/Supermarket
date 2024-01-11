@@ -43,4 +43,9 @@ public class CustomerServiceImplementation implements CustomerService{
 	public List<customer> getAllCustomers(){
 		return customer_repository.findAll();
 	}
+
+	@Override
+	public customer getCustomerByName(String name){
+		return customer_repository.findBycustomerName(name);
+	}
 }

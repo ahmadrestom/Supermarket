@@ -73,9 +73,5 @@ public class ItemController {
 	{
 		itemservice.deleteItem(item_id);
 		return "Item deleted successfully";
-	}
-	
-	
-	
-	
+	}	
 }

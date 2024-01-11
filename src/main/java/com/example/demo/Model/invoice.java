@@ -4,14 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,7 +23,8 @@ public class invoice {
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer invoices_id;
-	private LocalDateTime invoices_date;
+	@GeneratedValue
+	private LocalDateTime invoices_date =LocalDateTime.now();
 	private BigDecimal total_amount;
 	
 	@ManyToOne
@@ -38,13 +35,10 @@ public class invoice {
 	@JsonManagedReference
 	private List<invoice_item> invoice_items = new ArrayList<>();
 	
-	
-
-	public invoice(Integer invoices_id, LocalDateTime invoices_date, BigDecimal total_amount,
+	public invoice(Integer invoices_id, BigDecimal total_amount,
 			com.example.demo.Model.customer customer, List<invoice_item> invoice_items) {
 		super();
 		this.invoices_id = invoices_id;
-		this.invoices_date = invoices_date;
 		this.total_amount = total_amount;
 		this.customer = customer;
 		this.invoice_items = invoice_items;

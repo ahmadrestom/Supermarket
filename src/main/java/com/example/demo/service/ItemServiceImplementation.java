@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Model.item;
@@ -39,7 +37,7 @@ public class ItemServiceImplementation implements ItemService{
 	}
 
 	@Override
-	public item getItem(Integer item_id) {
+	public item getItem(Integer item_id){
 		return item_repository.findById(item_id).get();
 	}
 
@@ -50,7 +48,7 @@ public class ItemServiceImplementation implements ItemService{
 
 	@Override
 	public List<item> getByName(String item_name){
-		return item_repository.findItemsByNameContaining(item_name);
+		return item_repository.findByitemNameContaining(item_name);
 	}
 	
 	@Override

@@ -40,16 +40,28 @@ public class InvoiceServiceImplementation implements InvoiceService{
 	        Integer itemId = item.getItem().getItem_id();
 	        item existingItem = item_repository.findById(itemId).orElse(null);
 
-	        if (existingItem != null && existingItem.getItem_price() != null && item.getQuantity() != null) {
+	        if (existingItem != null && existingItem.getItem_price() != null && item.getQuantity() != null) 
+	        {
 	            BigDecimal price = existingItem.getItem_price();
 	            int quantity = item.getQuantity();
 	            BigDecimal subtotal = price.multiply(BigDecimal.valueOf(quantity));
 	            int existingItemQuantity = existingItem.getItem_quantity();
-	            existingItem.setItem_quantity(existingItemQuantity - item.getQuantity());
-	            item.setSubtotal(subtotal);
-	            item.setInvoice(invoice);
-	            totalAmount = totalAmount.add(subtotal);
-	        } else {
+	            if(existingItemQuantity >= quantity)
+	            {
+	            	existingItem.setItem_quantity(existingItemQuantity - item.getQuantity());
+	            	item.setSubtotal(subtotal);
+		            item.setInvoice(invoice);
+		            totalAmount = totalAmount.add(subtotal);
+	            }
+	            else
+	            {
+	            	return "No more items";
+	            }
+	            
+	            
+	        }
+	        else
+	        {
 	            return "Item not found. Invoice_item creation failed";
 	        }
 	    }
@@ -88,6 +100,11 @@ public class InvoiceServiceImplementation implements InvoiceService{
 	    }
 	    
 	    return invoices;
+	}
+	
+	@Override
+	public List<invoice> getCustomerInvoices(String customer_name){
+		return invoice_repository.findInvoiceByCustomerName(customer_name);
 	}
 
 }

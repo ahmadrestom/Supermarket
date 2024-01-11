@@ -1,8 +1,7 @@
 package com.example.demo.Controller;
 
-import java.time.LocalDateTime;
-import java.util.List;
 
+import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.Model.invoice;
+import com.example.demo.service.CustomerService;
 import com.example.demo.service.InvoiceService;
 
 @RestController
@@ -20,10 +19,12 @@ import com.example.demo.service.InvoiceService;
 public class InvoiceController {
 	
 	InvoiceService invoice_service;
+	CustomerService customer_service;
 
-	public InvoiceController(InvoiceService invoice_service) {
+	public InvoiceController(InvoiceService invoice_service, CustomerService customer_service) {
 		super();
 		this.invoice_service = invoice_service;
+		this.customer_service = customer_service;
 	}
 	
 	
@@ -37,9 +38,13 @@ public class InvoiceController {
 		return invoice_service.getAllInvoices();
 	}
 	
+	@GetMapping("/CustomerInvoices/{customer_name}")
+	public List<invoice> getCustomerInvoicesDetails(@PathVariable("customer_name") String customer_name){
+		return invoice_service.getCustomerInvoices(customer_name);
+	}
+	
 	@PostMapping
-	public String createInvoiceDetails(@RequestBody invoice invoice) {
-		invoice.setInvoices_date(LocalDateTime.now());		
+	public String createInvoiceDetails(@RequestBody invoice invoice) {	
 		invoice_service.createInvoice(invoice);
 		return "Invoice created successfully";
 	}

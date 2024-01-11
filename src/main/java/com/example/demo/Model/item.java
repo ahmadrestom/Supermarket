@@ -1,6 +1,8 @@
 package com.example.demo.Model;
 
 import java.math.BigDecimal;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +18,8 @@ public class item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer item_id;
-	private String item_name;
+	@Column(name = "item_name")
+	private String itemName;
 	private BigDecimal item_price;
 	private Integer item_quantity;
 	@ManyToOne
@@ -28,7 +31,7 @@ public class item {
 
 	public item(String item_name, BigDecimal item_price, Integer item_quantity,
 			com.example.demo.Model.category category, com.example.demo.Model.supplier supplier) {
-		this.item_name = item_name;
+		this.itemName = item_name;
 		this.item_price = item_price;
 		this.item_quantity = item_quantity;
 		this.category = category;
@@ -50,11 +53,11 @@ public class item {
 	}
 
 	public String getItem_name() {
-		return item_name;
+		return itemName;
 	}
 
 	public void setItem_name(String item_name) {
-		this.item_name = item_name;
+		this.itemName = item_name;
 	}
 
 	public BigDecimal getItem_price() {
