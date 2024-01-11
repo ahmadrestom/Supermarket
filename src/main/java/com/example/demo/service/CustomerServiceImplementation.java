@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Model.customer;
@@ -48,4 +50,10 @@ public class CustomerServiceImplementation implements CustomerService{
 	public customer getCustomerByName(String name){
 		return customer_repository.findBycustomerName(name);
 	}
+	
+	@Override
+	public Page<customer> getAllCustomers(Pageable pageable){
+		return customer_repository.findAll(pageable);
+	}
+	
 }

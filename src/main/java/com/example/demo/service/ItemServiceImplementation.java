@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Model.customer;
 import com.example.demo.Model.item;
 import com.example.demo.Repository.ItemRepository;
 
@@ -50,11 +52,9 @@ public class ItemServiceImplementation implements ItemService{
 	public List<item> getByName(String item_name){
 		return item_repository.findByitemNameContaining(item_name);
 	}
-	
 	@Override
-	public Page<item> getSomeItems(int offset, int pageSize){
-		Page<item> items = item_repository.findAll(PageRequest.of(offset, pageSize));
-		return items;
+	public Page<item> getAllItems(Pageable pageable){
+		return item_repository.findAll(pageable);
 	}
 
 }

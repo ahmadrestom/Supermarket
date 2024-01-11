@@ -3,6 +3,8 @@ package com.example.demo.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Model.invoice;
@@ -21,9 +23,6 @@ public class InvoiceServiceImplementation implements InvoiceService{
 	
 	ItemRepository item_repository;
 	
-	
-	
-
 	public InvoiceServiceImplementation(InvoiceRepository invoice_repository,
 			Invoice_itemRepository invoice_itemRepository, ItemRepository item_repository) {
 		super();
@@ -105,6 +104,11 @@ public class InvoiceServiceImplementation implements InvoiceService{
 	@Override
 	public List<invoice> getCustomerInvoices(String customer_name){
 		return invoice_repository.findInvoiceByCustomerName(customer_name);
+	}
+
+	@Override
+	public Page<invoice> getAllInvoices(Pageable pageable) {
+		return invoice_repository.findAll(pageable);
 	}
 
 }

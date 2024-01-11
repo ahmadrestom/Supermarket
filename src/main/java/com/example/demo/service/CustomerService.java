@@ -2,6 +2,9 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.example.demo.Model.customer;
 
 public interface CustomerService {
@@ -11,4 +14,5 @@ public interface CustomerService {
 	public customer getCustomer(Integer customer_id);
 	public List<customer> getAllCustomers();
 	public customer getCustomerByName(String name);
+	public Page<customer> getAllCustomers(Pageable pageable);
 }

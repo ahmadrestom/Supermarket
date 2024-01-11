@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Model.supplier;
@@ -43,6 +45,11 @@ public class SupplierServiceImplementation implements SupplierService{
 	@Override
 	public List<supplier> getAllSuppliers() {
 		return supplier_repository.findAll();
+	}
+	
+	@Override
+	public Page<supplier> getAllSuppliers(Pageable pageable){
+		return supplier_repository.findAll(pageable);
 	}
 
 }

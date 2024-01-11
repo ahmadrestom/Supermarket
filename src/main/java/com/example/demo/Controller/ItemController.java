@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Model.item;
@@ -42,16 +44,10 @@ public class ItemController {
 		return itemservice.getByName(item_name);
 	}
 	
-	@GetMapping("/pagination/{pageSize}") //returns limited number of items
-	public Page<item> getLimitedItemsDetails(@PathVariable int pageSize){
-		Page<item> items = itemservice.getSomeItems(0, pageSize);
-		return items;
-	}
-	
-	@GetMapping("/pagination/{offset}/{pageSize}") //returns the data as pages
-	public Page<item> getSomeItemsDetails(@PathVariable int offset, @PathVariable int pageSize){
-		Page<item> items = itemservice.getSomeItems(offset, pageSize);
-		return items;
+	@GetMapping("/bypage")
+	public Page<item> getItemsByPages(@RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="5") int size)
+	{
+		return itemservice.getAllItems(PageRequest.of(page, size));
 	}
 	
 	@PostMapping

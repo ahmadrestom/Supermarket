@@ -2,6 +2,8 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Model.customer;
@@ -41,6 +44,15 @@ public class CustomerController {
 	{
 		return customerService.getAllCustomers();
 	}
+	
+	@GetMapping("/bypage")
+	public Page<customer> getCustomersByPages(@RequestParam(defaultValue="0") int page,
+											  @RequestParam(defaultValue="10")int size)
+	{
+		return customerService.getAllCustomers(PageRequest.of(page, size));		
+	}
+	
+	
 	
 	@PostMapping
 	public String createCustomerDetails(@RequestBody customer customer)
